@@ -1,4 +1,4 @@
-- hosts: m1.ipa1demo.test
+- hosts: localhost
   tasks:
   - name: remove old trust information on IPA1DEMO
     shell: |
