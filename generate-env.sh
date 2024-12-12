@@ -1,6 +1,6 @@
 dnf -y install libvirt-devel krb5-devel python3-devel
 
-podman build -t fedora-freeipa:40 -f Containerfile.build.fedora
+podman build -t fedora-freeipa:40 -f Containerfile.freeipa
 
 python3 -m venv ipa-local-test
 
