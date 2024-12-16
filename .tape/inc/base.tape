@@ -2,12 +2,12 @@ Require echo
 
 Set Theme GruvboxDark
 Set Shell "bash"
-Set FontSize 24
-Set Width 1200
-Set Height 800
+Set FontSize 16
+Set Width 1920
+Set Height 1080
 
 Hide
-Type 'echo "Welcome to FreeIPA!"'
+Type "cat ./inc/freeipa.ascii"
 Enter
 Sleep 500ms
 Show

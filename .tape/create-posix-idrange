@@ -1,0 +1,27 @@
+
+Type "# Connect to m2.ipa2demo.test"
+Sleep 500ms
+Enter
+Type "sudo podman exec -it m2.ipa2demo.test /bin/bash"
+Enter
+Sleep 1s
+
+
+Type "# create POSIX ID range for IPA1DEMO.TEST trust on IPA2DEMO.TEST"
+Sleep 500ms
+Enter
+Type "echo SomeADMINpassword | kinit admin"
+Enter
+Sleep 1s
+Type "ipa idrange-add IPA1DEMO.TEST_id_range --dom-sid ??? --type=ipa-ad-trust-posix --base-id ??? --range-size ???"
+Enter
+Sleep 3s
+Type "# fix up ipaPartnerTrustType in LDAP object"
+Sleep 3s
+Enter
+Type "ipa trust-mod IPA1DEMO.TEST --addattr objectclass=ipatrustobject --addattr ipapartnertrusttype=35"
+Enter
+Sleep 3s
+Type "exit"
+Enter
+Sleep 1s

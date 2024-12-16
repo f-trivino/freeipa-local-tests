@@ -1,0 +1,148 @@
+Output "establish-trust.gif"
+Output "establish-trust.webm"
+Source inc/base.tape
+
+Type "# List Cluster Containers"
+Sleep 500ms
+Enter
+Type "sudo podman ps"
+Enter
+Sleep 1s
+
+
+Type "# Connect to m1.ipa1demo.test server"
+Sleep 500ms
+Enter
+Type "sudo podman exec -it m1.ipa1demo.test /bin/bash"
+Enter
+Sleep 1s
+
+
+Type "# Collecting domain information for IPA1DEMO"
+Sleep 500ms
+Enter
+Type "echo SomeADMINpassword | kinit admin"
+Enter
+Sleep 1s
+Type "ipa idrange-show IPA1DEMO.TEST_id_range --raw"
+Enter
+Sleep 5s
+Type "ipa trustconfig-show --raw"
+Enter
+Sleep 5s
+Type "ipa dnsrecord-show ipa1demo.test m1 --raw"
+Enter
+Sleep 5s
+Type "# Domain information collected for IPA1DEMO!"
+Enter
+Sleep 3s
+Type "exit"
+Enter
+Sleep 1s
+
+
+
+Type "# Connect to m2.ipa2demo.test"
+Sleep 500ms
+Enter
+Type "sudo podman exec -it m2.ipa2demo.test /bin/bash"
+Enter
+Sleep 1s
+
+
+Type "# Collecting domain information for IPA2DEMO"
+Sleep 500ms
+Enter
+Type "echo SomeADMINpassword | kinit admin"
+Enter
+Sleep 1s
+Type "ipa idrange-show IPA2DEMO.TEST_id_range --raw"
+Enter
+Sleep 5s
+Type "ipa trustconfig-show --raw"
+Enter
+Sleep 5s
+Type "ipa dnsrecord-show ipa2demo.test m2 --raw"
+Enter
+Sleep 5s
+Type "# Domain information collected for IPA2DEMO!"
+Enter
+Sleep 3s
+Type "exit"
+Enter
+Sleep 1s
+
+
+
+Type "# Connect to m1.ipa1demo.test server"
+Sleep 500ms
+Enter
+Type "sudo podman exec -it m1.ipa1demo.test /bin/bash"
+Enter
+Sleep 1s
+
+
+Type "# Creating DNS zone forwarder for ipa2demo.test in m1.ipa1demo.test server"
+Sleep 500ms
+Enter
+Type "echo SomeADMINpassword | kinit admin"
+Enter
+Sleep 1s
+Type "ipa dnsforwardzone-add ipa2demo.test --forwarder 192.168.83.13"
+Enter
+Sleep 3s
+Type "# DNS zone forwarder created for ipa2demo.test!"
+Enter
+Sleep 3s
+Type "exit"
+Enter
+Sleep 1s
+
+
+Type "# Connect to m2.ipa2demo.test"
+Sleep 500ms
+Enter
+Type "sudo podman exec -it m2.ipa2demo.test /bin/bash"
+Enter
+Sleep 1s
+
+
+
+Type "# Creating DNS zone forwarder for ipa1demo.test in m2.ipa2demo.test"
+Sleep 500ms
+Enter
+Type "echo SomeADMINpassword | kinit admin"
+Enter
+Sleep 1s
+Type "ipa dnsforwardzone-add ipa1demo.test --forwarder 192.168.83.10"
+Enter
+Sleep 3s
+Type "# DNS zone forwarder created for ipa2demo.test!"
+Sleep 3s
+Enter
+Type "exit"
+Enter
+Sleep 1s
+
+
+Type "# Connect to m1.ipa1demo.test"
+Sleep 500ms
+Enter
+Type "sudo podman exec -it m1.ipa1demo.test /bin/bash"
+Enter
+Sleep 1s
+
+Type "# Establishing trust between IPA1DEMO.TEST and IPA2DEMO.TEST"
+Sleep 500ms
+Enter
+Type "echo SomeADMINpassword | kinit admin"
+Enter
+Sleep 1s
+Type "echo SomeADMINpassword | ipa trust-add --type=ipa ipa2demo.test --admin 'admin@IPA1DEMO.TEST' --password --two-way=true --range-type=ipa-ad-trust-posix"
+Enter
+Sleep 3s
+Type "# Trust established between IPA1DEMO and IPA2DEMO!"
+Sleep 3s
+Type "exit"
+Enter
+Sleep 1s

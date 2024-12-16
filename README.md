@@ -25,12 +25,14 @@ dnf install -y git-core ansible ansible-collection-containers-podman podman gcc 
 ## Usage
 
 1. **Clone the Repository**
+
     Clone the repository
     ```bash
     git clone https://github.com/f-trivino/freeipa-local-tests.git -b podman && cd freeipa-local-tests
     ```
 
 2. **Install ipalab-config and ansible-freeipa**
+
     Usage of Python's virtual environment is encouraged:
     ```bash
     python3 -m venv ipalab && cd ipalab && source bin/activate
@@ -40,6 +42,7 @@ dnf install -y git-core ansible ansible-collection-containers-podman podman gcc 
     ```
 
 3. **Deploy the multihost clusters and deploy FreeIPA**
+
     The tool ipalab-config will generate all needed files.
     ```bash
     ipalab-config -f ../image/containerfile ../examples/multihost.clusters && cd multihost
@@ -48,6 +51,12 @@ dnf install -y git-core ansible ansible-collection-containers-podman podman gcc 
     ```
 
 4. **Play with the development preview feature**
+
+    In this example you can see how to establish trust between two different IPA deployments.
+    ![Establish IPA Trust](./videos/establish-trust.webm)
+
+4. **Play with the development preview feature**
+
     Run normal ansible playbooks to play with the IPA deployments, in this example, IPA trust is establish between ipa1demo and ipa2demo clusters.
     ```bash
     ansible-playbook -i inventory.yml ../data/establish-trust.yaml
@@ -71,9 +80,9 @@ ansible-core issues:
 ```bash
 pip install --force 'ansible-core < 2.18'
 ```
+
 How to connect to the containers:
 ```bash
 podman ps 
 podman exec -it m1 /bin/bash
 ```
-
