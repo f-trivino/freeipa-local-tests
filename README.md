@@ -1,11 +1,10 @@
 # FreeIPA Cluster Testing with Podman Containers
 
-This project provides a framework for testing FreeIPA development features using clusters of Podman containers. The container images are built with experimental Fedora COPRs, including features in **Development Preview**, to enable rapid testing of new capabilities and configurations.
-
+This project provides a framework for testing FreeIPA development features using clusters of Podman containers as FreeIPA ephemeral deplotments. The container images are built with experimental Fedora COPRs, including features in **Development Preview**, to enable rapid testing of new capabilities and configurations.
 
 ## Features
 
-- **Cluster-based Testing**: Easily deploy clusters of FreeIPA instances for advanced feature testing.
+- **Cluster-based Testing**: Easily deploy clusters of FreeIPA instances as ephemeral deployments for advanced feature testing.
 - **Experimental Images**: Leverages Fedora COPRs to include the latest development preview features.
 - **Automation**: Simplifies setup and management of Podman-based FreeIPA clusters.
 
@@ -19,14 +18,13 @@ This project provides a framework for testing FreeIPA development features using
 
 ### Installing System Dependencies
 ```bash
-dnf install -y git-core ansible ansible-collection-containers-podman podman gcc libvirt-devel krb5-devel python3-devel podman-compose
+sudo dnf install -y git-core ansible ansible-collection-containers-podman podman gcc libvirt-devel krb5-devel python3-devel podman-compose
 ```
 
 ## Usage
 
 1. **Clone the Repository**
 
-    Clone the repository
     ```bash
     git clone https://github.com/f-trivino/freeipa-local-tests.git -b podman && cd freeipa-local-tests
     ```
@@ -46,7 +44,7 @@ dnf install -y git-core ansible ansible-collection-containers-podman podman gcc 
     The tool ipalab-config will generate all needed files.
     ```bash
     ipalab-config -f ../image/containerfile ../examples/multihost.clusters && cd multihost
-    podman-compose up -d
+    sudo podman-compose up -d
     ansible-playbook -i inventory.yml playbooks/install-cluster.yml
     ```
 
@@ -55,9 +53,9 @@ dnf install -y git-core ansible ansible-collection-containers-podman podman gcc 
     In this example you can see how to establish trust between two different IPA deployments.
     ![Establish IPA Trust](./videos/establish-trust.webm)
 
-4. **Play with the development preview feature**
+## Ansible
 
-    Run normal ansible playbooks to play with the IPA deployments, in this example, IPA trust is establish between ipa1demo and ipa2demo clusters.
+You can also develop your own Ansible playbooks to automate more complex configurations. Use standard Ansible playbooks to interact with the IPA deployments. In this example, an IPA trust is established between the ipa1demo and ipa2demo clusters:
     ```bash
     ansible-playbook -i inventory.yml ../data/establish-trust.yaml
     ```
