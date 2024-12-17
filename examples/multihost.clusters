@@ -10,6 +10,7 @@
 lab_name: multihost
 ipa_deployments:
   - name: ipa1demo
+    container_name: m1.ipa1demo.test
     distro: containerfile
     domain: ipa1demo.test
     realm: IPA1DEMO.TEST  # optional, by defaul it is domain in uppercase
@@ -18,14 +19,17 @@ ipa_deployments:
     dns: m1
     cluster:
       servers:
-        - name: m1
+        - name: m1.ipa1demo.test
           capabilities:
             - CA   # optional, first server is always CA
             - DNS
       clients:
-       - name: c1a
-       - name: c1b
+       - name: c1a.ipa1demo.test
+         container_name: c1a.ipa1demo.test
+       - name: c1b.ipa1demo.test
+         container_name: c1b.ipa1demo.test
   - name: ipa2demo
+    container_name: m2.ipa2demo.test
     distro: containerfile
     domain: ipa2demo.test
     realm: IPA2DEMO.TEST  # optional, by defaul it is domain in uppercase
@@ -34,10 +38,12 @@ ipa_deployments:
     dns: m2
     cluster:
       servers:
-        - name: m2
+        - name: m2.ipa2demo.test
           capabilities:
             - CA   # optional, first server is always CA
             - DNS
       clients:
-       - name: c2a
-       - name: c2b
+       - name: c2a.ipa2demo.test
+         container_name: c2a.ipa1demo.test
+       - name: c2b.ipa2demo.test
+         container_name: c2b.ipa1demo.test

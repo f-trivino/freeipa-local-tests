@@ -4,7 +4,6 @@ ENV container=docker LANG=en_US.utf8 LANGUAGE=en_US.utf8 LC_ALL=en_US.utf8
 
 RUN echo 'deltarpm = false' >> /etc/dnf/dnf.conf \
     && dnf copr enable -y abbra/wip-ipa-trust \
-    && dnf copr enable -y abbra/vhs \
     && dnf update -y dnf \
     && dnf update -y python3 \
     && (sed -i 's/%_install_langs \(.*\)/\0:fr/g' /etc/rpm/macros.image-language-conf ||:) \
@@ -21,7 +20,6 @@ RUN echo 'deltarpm = false' >> /etc/dnf/dnf.conf \
         wget \
         freeipa-server-trust-ad \
         freeipa-server-dns \
-        vhs \
     && dnf clean all \
     && sed -i 's/.*PermitRootLogin .*/#&/g' /etc/ssh/sshd_config \
     && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config \
