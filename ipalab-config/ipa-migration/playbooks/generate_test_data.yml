@@ -13,9 +13,10 @@
         echo "  {"
         echo "    \"name\": \"testuser_${i}\","
         echo "    \"first\": \"First ${i}\","
-        echo "    \"last\": \"Last ${i}\","
-        echo "    \"password\": \"user${i}PW\","
-        echo "    \"passwordexpiration\": \"${date}\""
+        echo "    \"last\": \"Last ${i}\""
+        # echo "    \"last\": \"Last ${i}\","
+        # echo "    \"password\": \"user${i}PW\","
+        # echo "    \"passwordexpiration\": \"${date}\""
         if [ "$i" -lt "{{ user_count }}" ]; then
            echo "  },"
         else
