@@ -1,0 +1,55 @@
+# To create a sample configuration on the Keycloak node, execute the
+# script 'scripts/keycloack-sample.sh':
+#
+#    $ scripts/keycloack-sample.sh
+#
+# The sample configuration assumes the hostname is 'keycloak.external.test'
+# and will add the users:
+#
+#     - jdoe@keycloak.external.test
+#     - anne@keycloak.external.test
+#     - admin@keycloak.external.test
+#
+# All users will have password 'Secret123'
+#
+# It will also configure .... so that in will work an as external identity provider for IPA. To configure the IPA side, use:
+#
+#   [server.ipa.test]# ipa idp-add ...
+#
+---
+lab_name: ipa-idp-keycloak
+subnet: "192.168.14.0/24"
+container_fqdn: true
+external:
+  hosts:
+  - name: keycloak.external.test
+    hostname: keycloak.external.test
+    role: keycloak
+    options:
+      # admin_username: defaults to "admin"
+      # admin_password: defaults to "Secret123"
+      # http_port: defauts to 0, which means UI is not accessible
+      #            through regular browser session.
+  - name: ipatuura.bridge.test
+    hostname: ipatuura.bridge.test
+    role: ipatuura
+    options:
+      # admin_username: defaults to "scim"
+      # admin_password: defaults to "Secret123"
+      # http_port: defauts to 0, which means UI is not accessible
+      #            through regular browser session.
+ipa_deployments:
+  - name: ipa
+    domain: ipa.test
+    admin_password: SomeADMINpassword
+    dm_password: SomeDMpassword
+    cluster:
+      servers:
+        - name: server
+          capabilities: ["DNS"]
+          vars:
+            ipaserver_netbios_name: IPA
+            ipaserver_idstart: 60000
+            ipaserver_idmax: 62000
+            ipaserver_rid_base: 63000
+            ipaserver_secondary_rid_base: 70000
