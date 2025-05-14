@@ -24,9 +24,9 @@ podman-compose build
 podman-compose up -d
 ```
 
-At this stage, the environment consists of three containers:  
-- A container based on the official Keycloak image  
-- A container ready for deploying FreeIPA  
+At this stage, the environment consists of three containers:
+- A container based on the official Keycloak image
+- A container ready for deploying FreeIPA
 - The **ipa-tuura** service container, which bridges FreeIPA and Keycloak by integrating them through Keycloak's User Federation storage
 
 Deploy the IPA cluster using

@@ -8,12 +8,6 @@ subnet: "192.168.173.0/24"
 #  - "ipa-tuura.containerfile"
 external:
   hosts:
-  - name: keycloak
-    hostname: keycloak.external.test
-    role: keycloak
-    options:
-      # admin_username: defaults to "admin"
-      # admin_password: defaults to "secret123"
   - name: ipatuura
     hostname: ipatuura.ipa.test
     image: "quay.io/freeipa/ipa-tuura:latest"
@@ -26,3 +20,6 @@ ipa_deployments:
       servers:
         - name: server
           capabilities: ["DNS"]
+      clients:
+        - name: client
+
